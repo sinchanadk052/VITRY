@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Vitry — Studio 01</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+
+    <!-- ============== TOP NAV ============== -->
+
+    <header class="topnav">
+
+      <div class="brand">
+        <div class="logo">V</div>
+
+        <span class="brand-text">
+          VITRY <span class="brand-divider">/</span> STUDIO 01
+        </span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#studio">STUDIO</a>
+        <a href="#wardrobe">WARDROBE</a>
+        <a href="#measure">MEASURE</a>
+        <a href="#manifesto">MANIFESTO</a>
+      </nav>
+
+      <div class="nav-right">
+
+        <div class="status-pill" id="statusPill">
+          <span class="dot" id="statusDot"></span>
+          <span id="statusText">SYSTEM IDLE</span>
+        </div>
+
+        <button class="btn-dark" id="bookSessionBtn">
+          BOOK SESSION
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- ============== HERO ============== -->
+
+    <section class="hero">
+
+      <p class="issue-label">
+        ISSUE 026 — SPRING / SUMMER
+      </p>
+
+      <div class="hero-grid">
+
+        <div class="hero-left">
+
+          <h1 class="hero-title">
+            Try it on,<br />
+            <em>before</em> it's on<br />
+            you.
+          </h1>
+
+          <p class="hero-sub">
+            Vitry is the virtual intelligence try-on studio.
+            Pose detection, body measurement, and live garment fitting —
+            rendered in real time, tailored to a body that is exactly yours.
+          </p>
+
+          <div class="hero-actions">
+
+            <a href="#studio" class="btn-dark btn-arrow">
+              OPEN THE STUDIO <span>↗</span>
+            </a>
+
+            <a href="#measure" class="btn-link">
+              HOW THE FIT WORKS
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="hero-right">
+
+          <div class="stat-card">
+            <p class="stat-label">GARMENTS AVAILABLE</p>
+            <p class="stat-value">9</p>
+          </div>
+
+          <div class="stat-card">
+            <p class="stat-label">BODY KEYPOINTS</p>
+            <p class="stat-value">33</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============== MARQUEE ============== -->
+
+    <section class="marquee">
+
+      <div class="marquee-track">
+
+        <span><em>Real time</em></span>
+        <span class="dot-sep">✦</span>
+
+        <span><em>No fitting room</em></span>
+        <span class="dot-sep">✦</span>
+
+        <span><em>Vitry / 026</em></span>
+        <span class="dot-sep">✦</span>
+
+        <span><em>Real bodies</em></span>
+        <span class="dot-sep">✦</span>
+
+        <span><em>Real fabric</em></span>
+        <span class="dot-sep">✦</span>
+
+        <span><em>Real time</em></span>
+        <span class="dot-sep">✦</span>
+
+        <span><em>No fitting room</em></span>
+        <span class="dot-sep">✦</span>
+
+        <span><em>Vitry / 026</em></span>
+        <span class="dot-sep">✦</span>
+
+        <span><em>Real bodies</em></span>
+        <span class="dot-sep">✦</span>
+
+        <span><em>Real fabric</em></span>
+        <span class="dot-sep">✦</span>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============== STUDIO + WARDROBE ============== -->
+
+    <section class="studio-section" id="studio">
+
+      <div class="section-grid">
+
+        <!-- LEFT: Live fitting -->
+
+        <div class="studio-left">
+
+          <div class="section-label">
+            <span class="num">01</span>
+            <span class="line"></span>
+            <span>LIVE FITTING</span>
+          </div>
+
+
+          <div class="video-frame" id="videoFrame">
+
+            <div class="video-corners">
+              <span class="corner tl"></span>
+              <span class="corner tr"></span>
+              <span class="corner bl"></span>
+              <span class="corner br"></span>
+            </div>
+
+
+            <div class="video-tag-row">
+
+              <span class="standby-tag" id="standbyTag">
+                <span class="standby-dot"></span>
+                STANDBY
+              </span>
+
+              <span class="garment-tag" id="garmentTag">
+                SELECT GARMENT
+              </span>
+
+            </div>
+
+
+            <video
+              id="cam"
+              autoplay
+              playsinline
+              muted
+            ></video>
+
+            <canvas id="overlay"></canvas>
+
+
+            <div class="placeholder" id="placeholder">
+
+              <p class="placeholder-title">
+                STUDIO READY
+              </p>
+
+              <p class="placeholder-sub">
+                Open camera to begin live fitting
+              </p>
+
+            </div>
+
+
+            <div
+              class="timer-tag"
+              id="timerTag"
+              style="display: none"
+            >
+              ⧗ 60s
+            </div>
+
+
+            <div
+              class="fps-tag"
+              id="fpsTag"
+              style="display: none"
+            >
+              — FPS
+            </div>
+
+
+            <div
+              class="selvedge"
+              id="selvedge"
+              style="display: none"
+            >
+
+              <div
+                class="selvedge-swatch"
+                id="selvedgeSwatch"
+              ></div>
+
+              <div>
+
+                <p class="selvedge-label">
+                  SELVEDGE
+                </p>
+
+                <p
+                  class="selvedge-name"
+                  id="selvedgeName"
+                >
+                  —
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- CAMERA + MEASUREMENT CONTROLS -->
+
+          <div class="control-row">
+
+            <button
+              id="camBtn"
+              class="btn-control btn-control-dark"
+            >
+              <span class="ctrl-icon">▶</span>
+              OPEN CAMERA
+            </button>
+
+
+            <button
+              id="captureBtn"
+              class="btn-control"
+            >
+              <span class="ctrl-icon">▭</span>
+              CAPTURE MEASUREMENTS
+            </button>
+
+          </div>
+
+
+          <div class="height-row">
+
+            <span class="height-label">
+              YOUR HEIGHT
+            </span>
+
+            <input
+              id="refHeight"
+              type="number"
+              min="100"
+              max="220"
+              value="170"
+            />
+
+            <span class="height-hint">
+              CM — USED TO SCALE PIXELS TO CENTIMETERS
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT: Wardrobe -->
+
+        <div
+          class="studio-right"
+          id="wardrobe"
+        >
+
+          <div class="section-label">
+
+            <span class="num">02</span>
+            <span class="line"></span>
+            <span>THE WARDROBE</span>
+
+          </div>
+
+          <div
+            class="wardrobe-grid"
+            id="garmentGrid"
+          ></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============== BODY ATLAS ============== -->
+
+    <section
+      class="atlas-section"
+      id="measure"
+    >
+
+      <div class="atlas-grid">
+
+        <div class="atlas-left">
+
+          <div class="section-label">
+            <span class="num">03</span>
+            <span class="line"></span>
+            <span>BODY ATLAS</span>
+          </div>
+
+          <h2 class="atlas-title">
+            Eight points,<br />
+            <em>one</em> silhouette.
+          </h2>
+
+          <p class="atlas-sub">
+            Vitry maps your body to a high-resolution mesh and translates
+            pose keypoints into wearable dimensions — all locally,
+            all in real time.
+          </p>
+
+          <div
+            class="last-scan"
+            id="lastScan"
+          >
+
+            <span class="scan-icon">
+              ⌖
+            </span>
+
+            <span id="lastScanText">
+              LAST SCAN · NEVER
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="atlas-right"
+          id="atlasGrid"
+        >
+
+          <div class="atlas-cell">
+
+            <p class="cell-label">
+              SHOULDER
+            </p>
+
+            <p
+              class="cell-value"
+              id="m-shoulder"
+            >
+              —<span class="unit">cm</span>
+            </p>
+
+            <div class="cell-bar"></div>
+
+          </div>
+
+
+          <div class="atlas-cell">
+
+            <p class="cell-label">
+              HIP
+            </p>
+
+            <p
+              class="cell-value"
+              id="m-hip"
+            >
+              —<span class="unit">cm</span>
+            </p>
+
+            <div class="cell-bar"></div>
+
+          </div>
+
+
+          <div class="atlas-cell">
+
+            <p class="cell-label">
+              TORSO
+            </p>
+
+            <p
+              class="cell-value"
+              id="m-torso"
+            >
+              —<span class="unit">cm</span>
+            </p>
+
+            <div class="cell-bar"></div>
+
+          </div>
+
+
+          <div class="atlas-cell">
+
+            <p class="cell-label">
+              HEIGHT
+            </p>
+
+            <p
+              class="cell-value"
+              id="m-height"
+            >
+              —<span class="unit">cm</span>
+            </p>
+
+            <div class="cell-bar"></div>
+
+          </div>
+
+
+          <div class="atlas-cell">
+
+            <p class="cell-label">
+              LEFT ARM
+            </p>
+
+            <p
+              class="cell-value"
+              id="m-larm"
+            >
+              —<span class="unit">cm</span>
+            </p>
+
+            <div class="cell-bar"></div>
+
+          </div>
+
+
+          <div class="atlas-cell">
+
+            <p class="cell-label">
+              RIGHT ARM
+            </p>
+
+            <p
+              class="cell-value"
+              id="m-rarm"
+            >
+              —<span class="unit">cm</span>
+            </p>
+
+            <div class="cell-bar"></div>
+
+          </div>
+
+
+          <div class="atlas-cell">
+
+            <p class="cell-label">
+              LEFT LEG
+            </p>
+
+            <p
+              class="cell-value"
+              id="m-lleg"
+            >
+              —<span class="unit">cm</span>
+            </p>
+
+            <div class="cell-bar"></div>
+
+          </div>
+
+
+          <div class="atlas-cell">
+
+            <p class="cell-label">
+              RIGHT LEG
+            </p>
+
+            <p
+              class="cell-value"
+              id="m-rleg"
+            >
+              —<span class="unit">cm</span>
+            </p>
+
+            <div class="cell-bar"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============== MANIFESTO ============== -->
+
+    <section
+      class="manifesto-section"
+      id="manifesto"
+    >
+
+      <div class="section-label">
+
+        <span class="num">04</span>
+        <span class="line"></span>
+        <span>MANIFESTO</span>
+
+      </div>
+
+      <h2 class="manifesto-title">
+        We don't believe in average sizes.
+        We believe in the body in the mirror
+        — and the garment that
+        <em>finally agrees</em> with it.
+      </h2>
+
+    </section>
+
+
+    <!-- ============== PIPELINE LOG ============== -->
+
+    <section class="log-section">
+
+      <div class="section-label">
+
+        <span class="num">05</span>
+        <span class="line"></span>
+        <span>PIPELINE LOG</span>
+
+      </div>
+
+      <div
+        class="log"
+        id="log"
+      ></div>
+
+    </section>
+
+
+    <!-- ============== FOOTER ============== -->
+
+    <footer class="footer">
+
+      <div class="footer-line"></div>
+
+      <div class="footer-content">
+
+        <p>
+          VITRY / STUDIO 01 — DEPT. OF CSE | GAT | 2025-26
+        </p>
+
+        <p>
+          CSEP23605
+        </p>
+
+      </div>
+
+    </footer>
+
+
+    <!-- Modal -->
+
+    <div
+      class="modal-overlay"
+      id="modalOverlay"
+      style="display: none"
+    >
+
+      <div class="modal">
+
+        <p class="modal-issue">
+          SYSTEM NOTICE
+        </p>
+
+        <h2>
+          No body in the frame.
+        </h2>
+
+        <p class="modal-text">
+          The studio waited 60 seconds and could not detect a person.
+          The camera has been switched off.
+        </p>
+
+        <p class="modal-hint">
+          Stand fully visible in frame and try again.
+        </p>
+
+        <button
+          id="modalCloseBtn"
+          class="btn-dark"
+        >
+          UNDERSTOOD
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- MediaPipe -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.js"></script>
+
+
+    <!-- App -->
+
+    <script src="js/garments.js"></script>
+    <script src="js/pose.js"></script>
+    <script src="js/measurements.js"></script>
+    <script src="js/app.js"></script>
+
+  </body>
+</html>

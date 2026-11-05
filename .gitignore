@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Model checkpoints
+rtv_ckpts/
+
+# Debug files
+debug_frame.jpg
+
+# Temporary backups
+*_before_fix.py
+*_before_worker.py
+*_before_rtv_thread.py
+recovery_backup_*/
+
+# IDE files
+.vscode/
+.idea/
+
+# System files
+.DS_Store
